@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 /*import Home from './pages/Home';*/
-import Register from './pages/Register';
+/*import Register from './pages/Register';*/
 import Login from './pages/Login';
 import "./App.css";
 
@@ -12,8 +12,8 @@ function App  () {
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
       <main className="flex-grow-1">
-        {/*<Home />*/}
-      <Login />
+       {/*<Home />*/}
+       {/*<Login />*/}
       <Register />
       </main>
 
