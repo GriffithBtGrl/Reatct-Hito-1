@@ -24,7 +24,7 @@ const Login = () => {
 
   return (
     <div className="form-container">
-      <h2>Registro</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -40,7 +40,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
     
-        <button type="submit">Registrarse</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
       {message && <p>{message}</p>}
     </div>
