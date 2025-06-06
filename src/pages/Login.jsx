@@ -1,16 +1,15 @@
 import  { useState } from "react";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //Validacioones
-    if (!email || !password || !confirmPassword) {
+    //Validaciones
+    if (!email || !password ) {
       setMessage("Todos los campos son obligatorios");
       return;
     }
@@ -20,12 +19,7 @@ const Register = () => {
       return;
     }
 
-    if (password !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden");
-      return;
-    }
-
-    setMessage("Registro existoso ✅");
+    setMessage("Login existoso ✅");
   };
 
   return (
@@ -45,13 +39,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <input
-          type="password"
-          placeholder="Confirmar contraseña"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+    
         <button type="submit">Registrarse</button>
       </form>
       {message && <p>{message}</p>}
@@ -59,4 +47,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
