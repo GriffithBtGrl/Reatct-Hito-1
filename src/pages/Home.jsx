@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import CardPizza from '../components/CardPizza';
+import{ pizzas } from '../pizzas';
 
 const Home = () => {
   return (
@@ -7,7 +8,13 @@ const Home = () => {
       <Header />
       <div className="container py-5 bg-light">
         <div className="row justify-content-center">
-          <CardPizza
+          {pizzas.map((pizza) => (
+             <CardPizza
+              key={pizza.id} pizza={pizza}
+            />
+          ))
+        }
+          {/* <CardPizza
             name="Napolitana"
             price={5950}
             ingredients={['queso Mozzarella', 'tomates', 'jamón', 'orégano']}
@@ -24,7 +31,7 @@ const Home = () => {
             price={6950}
             ingredients={['queso Mozzarella', 'pepperoni', 'orégano']}
             img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3"
-          />
+          /> */}
         </div>
       </div>
     </>
