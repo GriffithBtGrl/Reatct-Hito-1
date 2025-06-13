@@ -13,8 +13,8 @@ function App  () {
       <Navbar />
       <main className="flex-grow-1">
        {/*<Home />*/}
-       {/*<Login />*/}
-      <Register />
+       <Login />*
+      {/* <Register /> */}
       </main>
 
       <Footer />
