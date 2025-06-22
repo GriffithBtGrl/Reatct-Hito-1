@@ -1,19 +1,43 @@
+import React, {useEffect, useState } from 'react';
 import Header from '../components/Header';
 import CardPizza from '../components/CardPizza';
-import{ pizzas } from '../pizzas';
+// import{ pizzas } from '../pizzas';
+
+
 
 const Home = () => {
+  const [pizzas, setPizzas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/pizzas")
+      .then((res) => res.json())
+      .then((data) => {
+        setPizzas(data);
+        setLoading(false);
+      })
+
+      .catch((error) => {
+        console.error("Error fetching pizzas:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Cargando pizzas...</div>;
+  
+
   return (
     <>
       <Header />
       <div className="container py-5 bg-light">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
           {pizzas.map((pizza) => (
              <CardPizza
               key={pizza.id} pizza={pizza}
             />
-          ))
-        }
+          ))}
+
+        {/* === HITO 2 (Estado, componentes y eventos. ¿Ya no lo necesitaremos?) === */}
           {/* <CardPizza
             name="Napolitana"
             price={5950}
@@ -32,6 +56,7 @@ const Home = () => {
             ingredients={['queso Mozzarella', 'pepperoni', 'orégano']}
             img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3"
           /> */}
+
         </div>
       </div>
     </>

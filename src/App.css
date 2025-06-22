@@ -195,6 +195,78 @@
   top: 0;
 }
 
+
+/* PARA LA CARD QUE SE MUESTRA SOLA */
+.pizza-detalle {
+  max-width: 380px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+  padding: 28px 24px 20px 24px;
+  text-align: center;
+}
+
+.pizza-detalle img {
+  width: 90%;
+  max-width: 260px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.11);
+}
+
+.pizza-detalle h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 8px;
+  text-transform: capitalize;
+  color: #222;
+}
+
+.pizza-detalle p {
+  font-size: 1.07rem;
+  color: #444;
+  margin: 10px 0 16px 0;
+}
+
+.pizza-detalle ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.pizza-detalle ul li {
+  margin-bottom: 4px;
+  padding-left: 12px;
+  position: relative;
+  font-size: 1rem;
+  color: #555;
+}
+
+.pizza-detalle ul li::before {
+  /* content: "🍕"; */
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.pizza-detalle button {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 7px;
+  font-size: 1rem;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.pizza-detalle button:hover {
+  background: #444;
+}
+
 /*
 .logo {
   height: 6em;

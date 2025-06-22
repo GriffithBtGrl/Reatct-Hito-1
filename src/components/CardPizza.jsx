@@ -3,11 +3,11 @@ import React from "react";
 
 const CardPizza = ({ pizza }) => (
   <div className="card">
-    <img src={pizza.imagen} alt={pizza.nombre} style={{width: 80}} />
-    <h3>{pizza.nombre}</h3>
-    <p>Precio: ${pizza.precio.toLocaleString()}</p>
+    <img src={pizza.img} alt={pizza.name} style={{width: 80}} />
+    <h3>{pizza.name}</h3>
+    <p>Precio: ${pizza.price.toLocaleString()}</p>
     <ul>
-      {pizza.ingredientes.map((ing, idx) => (
+      {pizza.ingredients.map((ing, idx) => (
         <li key={idx}>{ing}</li>
       ))}
     </ul>
