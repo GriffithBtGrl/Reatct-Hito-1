@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const total = 25000;
   const token = false;
@@ -9,22 +11,22 @@ const Navbar = () => {
 
         <div className="d-flex justify-content-between w-100">
         <div className="d-flex gap-2">
-          <button className="btn btn-outline-light btn-sm">🏠 Home</button>
+          <Link to= "/" className="btn btn-outline-light btn-sm">🏠 Home</Link>
           {!token ? (
             <>
-              <button className="btn btn-outline-light btn-sm">🔐 Login</button>
-              <button className="btn btn-outline-light btn-sm">🔐 Register</button>
+              <Link to="/login" className="btn btn-outline-light btn-sm">🔐 Login</Link>
+              <Link to= "/register" className="btn btn-outline-light btn-sm">🔐 Register</Link>
             </>
           ) : (
             <>
-              <button className="btn btn-outline-light btn-sm">🔓 Profile</button>
+              <Link to= "/profile" className="btn btn-outline-light btn-sm">🔓 Profile</Link>
               <button className="btn btn-outline-light btn-sm">🔒 Logout</button>
             </>
           )}
           </div>
-          <button className="btn btn-outline-warning btn-sm">
+          <Link to= "/cart" className="btn btn-outline-warning btn-sm">
             🛒 Total: ${total.toLocaleString('es-CL')}
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
