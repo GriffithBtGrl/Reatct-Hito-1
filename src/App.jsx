@@ -8,10 +8,12 @@ import Login from "./pages/Login";
 import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { CartProvider } from "./context/CartContext";
 import "./App.css";
 
 function App() {
   return (
+    <CartProvider>
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
         <Navbar />
@@ -29,7 +31,11 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </CartProvider>
   );
 }
 
 export default App;
+
+// http://localhost:5000/api/pizzas
+// http://localhost:5000/api/pizzas/p001

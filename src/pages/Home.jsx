@@ -1,6 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import Header from '../components/Header';
 import CardPizza from '../components/CardPizza';
+import { useCart } from '../context/CartContext';
 // import{ pizzas } from '../pizzas';
 
 
@@ -8,6 +9,7 @@ import CardPizza from '../components/CardPizza';
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetch("http://localhost:5000/api/pizzas")
@@ -33,7 +35,9 @@ const Home = () => {
         <div className="row justify-content-center" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
           {pizzas.map((pizza) => (
              <CardPizza
-              key={pizza.id} pizza={pizza}
+              key={pizza.id} 
+              pizza={pizza}
+              onAdd={addToCart}
             />
           ))}
 
