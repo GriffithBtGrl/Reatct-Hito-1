@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const CardPizza = ({ pizza, onAdd }) => (
@@ -18,6 +19,9 @@ const CardPizza = ({ pizza, onAdd }) => (
       >
       Añadir 🛒
     </button>
+    <Link to={`/pizza/${pizza.id}`}>
+      <button style={{ marginLeft: 8 }}> Ver Más 👀</button>
+    </Link>
   </div>
 );
 

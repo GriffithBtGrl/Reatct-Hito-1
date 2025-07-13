@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   const { total } = useCart();
-  const token = false;
+  const { token, logout } = useUser();
+  const navigate = useNavigate();
+  // const token = false;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3 px-5">
@@ -21,7 +24,12 @@ const Navbar = () => {
           ) : (
             <>
               <Link to= "/profile" className="btn btn-outline-light btn-sm">🔓 Profile</Link>
-              <button className="btn btn-outline-light btn-sm">🔒 Logout</button>
+              <button className="btn btn-outline-light btn-sm"
+                onClick={() => {
+                  logout();
+                  navigate("/login");
+                }}>
+                🔒 Logout</button>
             </>
           )}
           </div>

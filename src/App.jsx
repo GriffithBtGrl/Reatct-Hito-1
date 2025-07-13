@@ -9,10 +9,24 @@ import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
+import { UserProvider } from "./context/UserContext";
+import { useUser } from "./context/UserContext";
+import { Navigate } from "react-router-dom";
 import "./App.css";
+
+function ProtectedRoute({ children }) {
+  const { token } = useUser();
+  return token ? children : <Navigate to="/login" />;
+}
+
+function RedirectIfAuth({ children }) {
+  const { token } = useUser();
+  return !token ? children : <Navigate to="/" />;
+}
 
 function App() {
   return (
+    <UserProvider>
     <CartProvider>
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
@@ -20,11 +34,11 @@ function App() {
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/pizza" element={<Pizza />} />
+            <Route path="/pizza/:id" element={<Pizza />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<RedirectIfAuth> <Login /> </RedirectIfAuth> } />
+            <Route path="/register" element={<RedirectIfAuth> <Register /> </RedirectIfAuth>} />
+            <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
@@ -32,6 +46,7 @@ function App() {
       </div>
     </BrowserRouter>
     </CartProvider>
+    </UserProvider>
   );
 }
 

@@ -1,9 +1,14 @@
 import  { useState } from "react";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const { login } = useUser();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,8 +25,15 @@ const Login = () => {
     }
 
     setMessage("Login existoso ✅");
-  };
+  
 
+    // Simular un login exitoso
+    setTimeout(() => {
+      login();
+      navigate("/profile");
+    }, 800); 
+  };
+    
   return (
     <div className="form-container">
       <h2>Login</h2>

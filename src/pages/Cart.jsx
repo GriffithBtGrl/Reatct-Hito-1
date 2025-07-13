@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 // import { pizzaCart } from "../pizzas";
 
 const Cart = () => {
   const { cart, changeQty, removeFromCart, total } = useCart();
+  const { token } = useUser();
 
   //   const aumentar = (id) => {
   //   setCart(cart.map(item =>
@@ -72,7 +74,9 @@ const Cart = () => {
           ))}
         </ul>
         <h3>Total: ${total.toLocaleString("es-CL")}</h3>
-        <button disiable={cart.length === 0}>Pagar</button>
+        <button disabled={!token || cart.length === 0}
+        className="btn btn-success"
+        >Pagar</button>
       </div>
     </div>
   );
