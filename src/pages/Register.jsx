@@ -1,4 +1,6 @@
-import  { useState } from "react";
+import { useState } from "react";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -6,8 +8,12 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const { register } = useUser();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
 
     //Validacioones
     if (!email || !password || !confirmPassword) {
@@ -25,8 +31,15 @@ const Register = () => {
       return;
     }
 
-    setMessage("Registro existoso ✅");
+    try {
+      await register(email, password);
+      setMessage("Registro existoso ✅");
+      navigate("/profile");
+    } catch (err) {
+      setMessage(err.message || "Error al registrar");
+    }
   };
+
 
   return (
     <div className="form-container">

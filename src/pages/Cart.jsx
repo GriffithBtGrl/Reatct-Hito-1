@@ -3,26 +3,36 @@ import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 // import { pizzaCart } from "../pizzas";
 
+const API_URL = "http://localhost:5000";
+
 const Cart = () => {
   const { cart, changeQty, removeFromCart, total } = useCart();
   const { token } = useUser();
 
-  //   const aumentar = (id) => {
-  //   setCart(cart.map(item =>
-  //     item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
-  //   ));
-  // };
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  // const disminuir = (id) => {
-  //   setCart(cart
-  //     .map(item =>
-  //       item.id === id ? { ...item, cantidad: item.cantidad - 1 } : item
-  //     )
-  //     .filter(item => item.cantidad > 0)
-  //   );
-  // };
+  // Pagar con backend y JWT
+  const handleCheckout = async () => {
+    setSuccess("");
+    setError("");
+    try {
+      const res = await fetch(`${API_URL}/api/checkouts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ cart }),
+      });
 
-  // const total = cart.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
+      if (res.ok) {
+        setSuccess("Compras realizada con éxito ✅");
+      }
+    } catch (err) {
+      setError("Error al procesar el pago");
+    }
+  };
 
   return (
     <div className="cart-outer">
@@ -31,10 +41,9 @@ const Cart = () => {
         <ul className="cart-list">
           {cart.length === 0 && <p>No hay pizzas en el carrito</p>}
           {cart.map((pizza) => (
-            <li className="cart-item"
-              key={pizza.id}
-            >
-              <img className="cart-img"
+            <li className="cart-item" key={pizza.id}>
+              <img
+                className="cart-img"
                 src={pizza.img}
                 alt={pizza.name}
                 style={{ width: 50, marginRight: 10 }}
@@ -44,25 +53,22 @@ const Cart = () => {
                 ${pizza.price.toLocaleString("es-CL")}
               </span>
               <div className="cart-buttons">
-              <button
-                onClick={() => disminuir(pizza.id)}
-                style={{ margin: "0 5px", color: "red" }}
-              >
-                -
-              </button>
-              <span>{pizza.cantidad}</span>
-              <button
-                onClick={() => changeQty(pizza.id, -1)}
-                style={{ margin: "0 5px", color: "blue" }}
-                disabled={pizza.cantidad === 1}
-              ></button>
-              <span>{pizza.cantidad}</span>
-              <button
-                onClick={() => changeQty(pizza.id, 1)}
-                style={{ margin: "0 5px", color: "green" }}
-              >
-                +
-              </button>
+                {/* Botón para disminuir cantidad */}
+                <button
+                  onClick={() => changeQty(pizza.id, -1)}
+                  style={{ margin: "0 5px", color: "red" }}
+                  disabled={pizza.cantidad === 1}
+                >
+                  -
+                </button>
+                <span>{pizza.cantidad}</span>
+                {/* Botón para aumentar cantidad */}
+                <button
+                  onClick={() => changeQty(pizza.id, 1)}
+                  style={{ margin: "0 5px", color: "green" }}
+                >
+                  +
+                </button>
               </div>
               <button
                 onClick={() => removeFromCart(pizza.id)}
@@ -74,9 +80,17 @@ const Cart = () => {
           ))}
         </ul>
         <h3>Total: ${total.toLocaleString("es-CL")}</h3>
-        <button disabled={!token || cart.length === 0}
-        className="btn btn-success"
-        >Pagar</button>
+        {/* Botón para pagar: llama a handleCheckout */}
+        <button
+          disabled={!token || cart.length === 0}
+          className="btn btn-success"
+          onClick={handleCheckout} // <-- Aquí conectas el pago real
+        >
+          Pagar
+        </button>
+        {/* Mensajes de éxito/error */}
+        {success && <p style={{ color: "green" }}>{success}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
     </div>
   );
